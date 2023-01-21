@@ -1,5 +1,6 @@
 const mysql = require("mysql");
-require("dotenv").config();
+require( "dotenv" ).config();
+
 const pool = mysql.createPool({
   connectionLimit: 10,
   host: process.env.host,
@@ -82,4 +83,4 @@ pool.query(answer, (err, results) => {
   console.log("answer table created");
 });
 
-// module.exports = pool
+module.exports = pool;
