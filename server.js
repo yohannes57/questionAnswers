@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const port = process.env.PORT;
 
-app.use("/", routerUser);
+app.use("/api/users", routerUser);
 app.get("/", (req, res) => {
   // call back fun ,sends heall as response
   res.send("this is heaven!!");
