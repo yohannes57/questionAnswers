@@ -1,4 +1,4 @@
-const { register, profile, g } = require("./User.service");
+const { register, profile, getAllUsers } = require("./User.service");
 
 //Importing bcryptJs module to use password encryption
 const bcrypt = require("bcryptjs");
@@ -76,5 +76,14 @@ module.exports = {
         }
       }
     );
+  },
+  getUsers: (req, res) => {
+    getAllUsers((err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ msg: "db connection me" });
+      }
+      return res.status(200).json({ data: results });
+    });
   },
 };
