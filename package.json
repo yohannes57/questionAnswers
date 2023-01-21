@@ -10,9 +10,18 @@
   "author": "'group one Evangadi student\"",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mysql": "^2.18.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yohannes57/Evangadi-forum.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yohannes57/Evangadi-forum/issues"
+  },
+  "homepage": "https://github.com/yohannes57/Evangadi-forum#readme"
 }
