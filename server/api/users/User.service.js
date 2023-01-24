@@ -1,6 +1,5 @@
 const pool = require("../../config/database");
 
-
 module.exports = {
   //data comes form the user controller
   register: (data, callback) => {
@@ -17,7 +16,6 @@ module.exports = {
     );
   },
   profile: (data, callback) => {
-
     //inserting data to profile table
     pool.query(
       `INSERT INTO profile(user_id,first_name,last_name)VALUES(?,?,?)`,
@@ -30,7 +28,6 @@ module.exports = {
       }
     );
   },
-
   userById: (id, callback) => {
     //getting data from registration and profile tables by joining them
     pool.query(
@@ -54,18 +51,6 @@ module.exports = {
           return callback(err);
         }
         return callback(null, result[0]);
-      }
-    );
-  },
-  getAllUsers: (callback) => {
-    pool.query(
-      `SELECT user_id,user_name,user_email from registration`,
-      [],
-      (err, result) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, result);
       }
     );
   },

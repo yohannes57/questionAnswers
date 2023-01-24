@@ -1,4 +1,3 @@
-
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -11,7 +10,7 @@ const auth = (req, res, next) => {
                 .json({ msg: "No authentication token, authorization denied." });
 
         const verified = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(verified);
+        // console.log(verified);
         if (!verified)
             return res
                 .status(401)
@@ -25,5 +24,3 @@ const auth = (req, res, next) => {
 };
 
 module.exports = auth;
-
-
