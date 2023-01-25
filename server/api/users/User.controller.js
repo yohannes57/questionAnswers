@@ -1,16 +1,24 @@
-const { register, profile, getAllUsers, getUserByEmail, userById } = require("./User.service");
+const {
+  register,
+  userById,
+  getUserByEmail,
+  profile,
+} = require("./user.service");
 
 //Importing bcryptJs module to use password encryption
 const bcrypt = require("bcryptjs");
+
 //Importing database structure
-// const pool = require( "../config/Database" );
 const pool = require("../../config/database");
-const jwt = require('jsonwebtoken')
+
+//jsonwebtoken help to create a token
+const jwt = require("jsonwebtoken");
+
 //exporting all methods
 module.exports = {
   createUser: (req, res) => {
     const { userName, firstName, lastName, email, password } = req.body;
-console.log(req.body);
+
     //validation
     if (!userName || !firstName || !lastName || !email || !password)
       return res
@@ -44,6 +52,7 @@ console.log(req.body);
               console.log(err);
               return res.status(500).json({ msg: "database connection err" });
             }
+
             //before registration finish, we need to get the user_id from the database accessing through email
             pool.query(
               "SELECT * FROM registration WHERE user_email = ?",
@@ -78,19 +87,8 @@ console.log(req.body);
       }
     );
   },
-  getUsers: (req, res) => {
-    getAllUsers((err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ msg: "db connection me" });
-      }
-      return res.status(200).json({ data: results });
-    });
-  },
-
   getUserById: (req, res) => {
-    //const id = req.params.id;
-//const.log("id===>",id,"user===>",req.id);
+    //getting req.id from auth middleware
     userById(req.id, (err, results) => {
       if (err) {
         console.log(err);
@@ -103,25 +101,36 @@ console.log(req.body);
     });
   },
   login: (req, res) => {
+    //destructuring req.body
     const { email, password } = req.body;
+
     //validation
     if (!email || !password)
-      return res.status(400).json({ msg: "Not all filds have been provided!" });
+      return res
+        .status(400)
+        .json({ msg: "Not all fields have been provided!" });
+
+    //sending data to check if email exist on our database
     getUserByEmail(email, (err, results) => {
       if (err) {
         console.log(err);
-        res.status(500).json({ msg: " database connection err " });
+        res.status(500).json({ msg: "database connection err" });
       }
       if (!results) {
         return res
           .status(404)
           .json({ msg: "No account with this email has been registered" });
       }
-      //creating token for the signed user that expires in 1 hour and
-      // using our secret key for creation
+
+      //check provided password by the user with the encrypted password from database
+      const isMatch = bcrypt.compareSync(password, results.user_password);
+      if (!isMatch) return res.status(404).json({ msg: "Invalid Credentials" });
+
+      //creating token for the signed user that expires in 1 hour and using our secret key for creation
       const token = jwt.sign({ id: results.user_id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
+
       //returning token and user-info
       return res.json({
         token,
