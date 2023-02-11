@@ -16,11 +16,11 @@ const SignUp = () => {
     e.preventDefault();
     try {
       //sending data to be registered in database
-      await axios.post("http://localhost:3001/api/users", form);
+      await axios.post("http://localhost:4000/api/users", form);
 
       //once registered the login automatically so send the new user info to be logged in
       const loginRes = await axios.post(
-        "http://localhost:3001/api/users/login",
+        "http://localhost:4000/api/users/login",
         {
           email: form.email,
           password: form.password,
@@ -105,7 +105,7 @@ const SignUp = () => {
                 />
                 <br />
                 <br />
-                <button type="submit">Agree and Join</button>
+                <button type="submit">SingUp</button>
               </form>
 
               <p>

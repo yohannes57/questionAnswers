@@ -5,7 +5,7 @@ import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 
 function AnsQuestion(props) {
-  let { questionId } = useParams(); 
+  let { questionId } = useParams();
   const [answer, setAnswer] = useState({});
   const [prevAnswers, setPrevAnswers] = useState();
 
@@ -14,37 +14,27 @@ function AnsQuestion(props) {
   const { question, currentUserId } = location.state;
   console.log("Location data", question);
 
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     // console.log(e.target.value);
-    await setAnswer({
+    setAnswer({
       answer: e.target.value,
       questionId: question.question_id,
       userId: currentUserId,
     });
   };
+
+  //
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(">>>>> post answer -1");
     try {
-      // console.log(">>>>> post answer 0");
-      // console.log(answer);
-      // await axios.post("http://localhost:3001/api/questions", {
-      //   answer: answer.answer,
-      // });
-      await axios.post("http://localhost:3001/api/answers", {
+      await axios.post("http://localhost:4000/api/answers", {
         answer: answer.answer,
         questionId: answer.questionId,
         userId: answer.userId,
       });
-      // console.log(">>>>> post answer 1");
-      // console.log(">>>>>>>>  your answer is submitted");
       window.location.reload(false);
-
-      // If set to true, the browser will do a complete
-      //  page refresh from the server and not from the
-      // cached version of the page.
     } catch (err) {
-      // console.log(">>>>>>>> ERROR  your answer is not submitted");
       console.log("Answers can't be submitted: ", err);
     }
   };
@@ -52,35 +42,39 @@ function AnsQuestion(props) {
   useEffect(() => {
     // setAskedQuestion(question);
     const fetchAnswers = async () => {
-      const answers = await axios.get(`http://localhost:3001/api/answers/${questionId}`);
-      // console.log(answers.data); 
-      // console.log(answers.data.data);
+      const answers = await axios.get(
+        `http://localhost:4000/api/answers/${questionId}`
+      );
+
       setPrevAnswers(() => {
         return answers.data?.data;
       });
       // console.log(">>>>>>prevAnswers ", prevAnswers);
     };
+
     try {
       fetchAnswers();
       // console.log(">>>>> Successfully fetched answers.");
       // console.log(answer.data);
-      } catch (err) {
+    } catch (err) {
       // console.log(">>>>> Can't fetch answers.");
     }
   }, []);
+
   return (
     <div className="answer">
       <div className="answer__top">
         <div className="answer__header">
           <p>Question</p>
           {/* <p>'the question goes here?'{questionId}</p> */}
-          <p>{question.question}</p>
-          <p>{question.question_description}</p>
+          <p>{question.title}</p>
+          <p>{question.description}</p>
         </div>
 
         <div className="answer__title">
           {prevAnswers?.length !== 0 && <h4>Answer From The Community</h4>}
         </div>
+
         <div className="answer__list">
           <div>
             {prevAnswers?.map((prevAnswer) => (

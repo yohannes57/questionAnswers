@@ -11,9 +11,9 @@ function Question({ show }) {
       </div>
       <div>
         <p>
-          {show?.question ||
+          {show?.question_description ||
             show?.answer ||
-            "['the question/answer goes here]'?"}{" "}
+            "['the question/answer goes here]'?"}
         </p>
       </div>
     </div>

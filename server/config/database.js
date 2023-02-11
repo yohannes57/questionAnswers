@@ -1,14 +1,12 @@
 const mysql = require("mysql");
-
-const pool = mysql.createPool({  
-
+require("dotenv").config();
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.MYSQL_DB,
   connectionLimit: 10,
 });
-
 
 let registration = `CREATE TABLE if not exists registration(
   user_id int auto_increment,
@@ -36,7 +34,7 @@ let question = `CREATE TABLE if not exists question(
   PRIMARY KEY (question_id),
   FOREIGN KEY (user_id) REFERENCES registration(user_id)
   )`;
- 
+
 let answer = `CREATE TABLE if not exists answer(
   answer_id int auto_increment,
   answer varchar(255) not null,
@@ -46,7 +44,7 @@ let answer = `CREATE TABLE if not exists answer(
   FOREIGN KEY (question_id) REFERENCES question(question_id),
   FOREIGN KEY (user_id) REFERENCES registration(user_id)
   )`;
- 
+
 pool.query(registration, (err, results) => {
   if (err) throw err;
   console.log("registration table created");

@@ -9,6 +9,7 @@ import Askquestion from "./Pages/Askquestion/Askquestion";
 import Footer from "./Pages/Footer/Footer";
 import Header from "./Pages/Header/Header";
 import Home from "./Pages/Home/Home";
+import Information from "./Pages/information/Information";
 import Login from "./Pages/Login/Login";
 import SignUp from "./Pages/SignUp/SignUp";
 function App() {
@@ -23,7 +24,7 @@ function App() {
       token = "";
     } else {
       //if token exists in localStorage then use auth to verify token and get user info
-      const userRes = await axios.get("http://localhost:3001/api/users", {
+      const userRes = await axios.get("http://localhost:4000/api/users", {
         headers: { "x-auth-token": token },
       });
 
@@ -64,6 +65,7 @@ function App() {
           <Route path="/" element={<Home logout={logout} />} />
           <Route path="/home" element={<Home logout={logout} />} />
           {/* Newly added routes */}
+          <Route path="/information" element={<Information />} />
           <Route path="/ask" element={<Askquestion />} />
           {/* <Route path="/answers" element={<AnsQuestion />} /> */}
           <Route path={`/answer/:questionId`} element={<AnsQuestion />} />

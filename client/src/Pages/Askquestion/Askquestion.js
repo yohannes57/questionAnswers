@@ -37,15 +37,13 @@ function AskQuestion() {
     try {
       // console.log("ask question>>> 0");
       console.log(form);
-
       //sending data to be registered in database
-      await axios.post("http://localhost:3001/api/questions", {
+      await axios.post("http://localhost:4000/api/questions", {
         title: form.title,
         description: form.description,
         userId: userData.user.id,
       });
       // console.log("ask question>>> 1");
-
       //navigate to homepage once the question is posted
       navigate("/");
       // console.log("ask question>>> 2");
@@ -75,7 +73,10 @@ function AskQuestion() {
           </div>
           <div className="askcover__input">
             <div className="form_container">
-              <form onSubmit={handleSubmit} action="submit">
+              <form
+                onSubmit={handleSubmit}
+                post="http://localhost:4000/api/questions"
+              >
                 <input
                   name="title"
                   type="text"

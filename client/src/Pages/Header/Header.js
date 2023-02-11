@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import logo from "../../images/evangadi-logo-home.png";
+import logo from "../../images/Q&A-portalff.png";
 import { Link } from "react-router-dom";
 
 function Header({ logout }) {
@@ -14,13 +14,15 @@ function Header({ logout }) {
           <Link to="/home" className="Link">
             <li>Home</li>
           </Link>
-          <li>How it Works</li>
-          <li>
-          <Link to="/home" className="Link">
-            <button onClick={logout} className="header__navBtn">
-              {localStorage.getItem("auth-token") ? "LogOut" : "SIGN IN"}
-            </button>
+          <Link className="Link" to="/information">
+            <li>How it Works</li>
           </Link>
+          <li>
+            <Link to="/home" className="Link">
+              <button onClick={logout} className="header__navBtn">
+                {localStorage.getItem("auth-token") ? "LogOut" : "SIGN IN"}
+              </button>
+            </Link>
           </li>
         </div>
       </nav>

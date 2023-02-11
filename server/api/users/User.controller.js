@@ -18,7 +18,6 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   createUser: (req, res) => {
     const { userName, firstName, lastName, email, password } = req.body;
-
     //validation
     if (!userName || !firstName || !lastName || !email || !password)
       return res
@@ -42,17 +41,14 @@ module.exports = {
         } else {
           //password encryption
           const salt = bcrypt.genSaltSync();
-
           //changing the value of password from req.body with the encrypted password
           req.body.password = bcrypt.hashSync(password, salt);
-
           //sending data to register
           register(req.body, (err, results) => {
             if (err) {
               console.log(err);
               return res.status(500).json({ msg: "database connection err" });
             }
-
             //before registration finish, we need to get the user_id from the database accessing through email
             pool.query(
               "SELECT * FROM registration WHERE user_email = ?",
@@ -87,6 +83,9 @@ module.exports = {
       }
     );
   },
+  //
+  // get user by by
+  //
   getUserById: (req, res) => {
     //getting req.id from auth middleware
     userById(req.id, (err, results) => {
@@ -100,6 +99,9 @@ module.exports = {
       return res.status(200).json({ data: results });
     });
   },
+  //
+  // login
+  //
   login: (req, res) => {
     //destructuring req.body
     const { email, password } = req.body;

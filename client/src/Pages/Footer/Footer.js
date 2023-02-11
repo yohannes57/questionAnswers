@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-import logoFtr from "../../images/evangadi-logo-footer.png";
+import logoFtr from "../../images/Q&A-portalf.png";
 import { FiFacebook } from "react-icons/fi";
 import { BsInstagram } from "react-icons/bs";
 import { AiOutlineYoutube } from "react-icons/ai";
@@ -39,9 +39,9 @@ function Footer() {
       <div className="footer__right">
         <h3>Contact Info</h3>
         <ul className="footer__rightList">
-          <li>Evangadi Networks</li>
-          <li>Support@evangadi.com</li>
-          <li>+1-202-386-2702</li>
+          <li>Q&A Networks</li>
+          <li>Support@yohannes7.com</li>
+          <li>+1206-789-99877</li>
         </ul>
       </div>
     </div>

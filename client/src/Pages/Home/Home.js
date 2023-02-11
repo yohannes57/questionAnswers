@@ -14,8 +14,8 @@ const Home = ({ logout }) => {
   useEffect(() => {
     if (!userData.user) navigate("/login");
     const fetchQuestions = async () => {
-      let questions = await axios.get("http://localhost:3001/api/questions");
-      questions = questions.data.data;    
+      let questions = await axios.get("http://localhost:4000/api/questions");
+      questions = questions.data.data;
       setAllQuestions(() => {
         return questions;
       });
@@ -27,13 +27,18 @@ const Home = ({ logout }) => {
     <>
       <div className="home">
         <div className="home__top">
-          <button onClick={() => {navigate("/ask");}} className="home_topBtn">
+          <button
+            onClick={() => {
+              navigate("/ask");
+            }}
+            className="home_topBtn"
+          >
             Ask Question
           </button>
           <h4>Welcome: {userData.user?.display_name}</h4>
         </div>
         <h3 className="home__question">Questions</h3>
-        <div> printed: {allQuestions[0]?.question_id}</div>
+        <div> {allQuestions[0]?.question_id}</div>
         <div className="home__questionLists">
           <div>
             {allQuestions?.map((question) => (
@@ -53,7 +58,9 @@ const Home = ({ logout }) => {
             ))}
           </div>
         </div>
-        {allQuestions.length < 3 && (<div className="home__questionListsBottom" />)}
+        {allQuestions.length < 3 && (
+          <div className="home__questionListsBottom" />
+        )}
         <button onClick={logout}>Log out</button>
       </div>
     </>

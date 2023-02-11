@@ -17,20 +17,20 @@ const Login = () => {
     try {
       // console.log("login>try 0");
       //sending user data to database to be logged in
-      const loginRes = await axios.post("http://localhost:3001/api/users/login",
+      const loginRes = await axios.post(
+        "http://localhost:4000/api/users/login",
         {
           email: form.email,
           password: form.password,
         }
       );
-      console.log("login>try 1");
-
+      // console.log("login>try 1");
       //update global state with response from backend(user-info)
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user,
       });
-      console.log("login>try 2");
+      // console.log("login>try 2");
 
       //set localStorage with the token
       localStorage.setItem("auth-token", loginRes.data.token);
@@ -38,7 +38,6 @@ const Login = () => {
       //navigate user to homepage
       navigate("/");
       console.log("login>try 3");
-
     } catch (err) {
       // console.log("problem", err.response.data.msg);
       // alert(err.response.data.msg);
@@ -65,9 +64,9 @@ const Login = () => {
                   Create a new account
                 </Link>
               </div>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <br />
-                <label>Email: </label> <br/>
+                <label>Email: </label> <br />
                 <input
                   placeholder="Your Email"
                   type="text"
@@ -83,7 +82,7 @@ const Login = () => {
                   onChange={handleChange}
                 />
                 <br /> <br />
-                <button onSubmit={handleSubmit}>Submit</button>
+                <button onSubmit={handleSubmit}>Login</button>
               </form>
               <br />
               <Link className="CrtAct" to="/signup">
