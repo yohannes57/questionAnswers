@@ -28,6 +28,9 @@ app.get("*", function (_, res) {
     }
   );
 });
+//  // "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
+// "client": "npm start --prefix client",
+// const path = require("path");
 // app.get("/", (req, res) => {
 //   // call back fun ,sends heall as response
 //   res.send("this is heaven!!");
