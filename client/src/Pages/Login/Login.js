@@ -17,13 +17,10 @@ const Login = () => {
     try {
       // console.log("login>try 0");
       //sending user data to database to be logged in
-      const loginRes = await axios.post(
-        "http://localhost:4000/api/users/login",
-        {
-          email: form.email,
-          password: form.password,
-        }
-      );
+      const loginRes = await axios.post("/users/login", {
+        email: form.email,
+        password: form.password,
+      });
       // console.log("login>try 1");
       //update global state with response from backend(user-info)
       setUserData({

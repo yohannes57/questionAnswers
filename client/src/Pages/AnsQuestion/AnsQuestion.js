@@ -28,7 +28,7 @@ function AnsQuestion(props) {
     e.preventDefault();
     // console.log(">>>>> post answer -1");
     try {
-      await axios.post("http://localhost:4000/api/answers", {
+      await axios.post("/answers", {
         answer: answer.answer,
         questionId: answer.questionId,
         userId: answer.userId,
@@ -42,9 +42,7 @@ function AnsQuestion(props) {
   useEffect(() => {
     // setAskedQuestion(question);
     const fetchAnswers = async () => {
-      const answers = await axios.get(
-        `http://localhost:4000/api/answers/${questionId}`
-      );
+      const answers = await axios.get(`/answers/${questionId}`);
 
       setPrevAnswers(() => {
         return answers.data?.data;

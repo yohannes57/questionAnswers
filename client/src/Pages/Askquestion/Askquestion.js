@@ -38,7 +38,7 @@ function AskQuestion() {
       // console.log("ask question>>> 0");
       console.log(form);
       //sending data to be registered in database
-      await axios.post("http://localhost:4000/api/questions", {
+      await axios.post("/questions", {
         title: form.title,
         description: form.description,
         userId: userData.user.id,
@@ -73,10 +73,7 @@ function AskQuestion() {
           </div>
           <div className="askcover__input">
             <div className="form_container">
-              <form
-                onSubmit={handleSubmit}
-                post="http://localhost:4000/api/questions"
-              >
+              <form onSubmit={handleSubmit} post="/questions">
                 <input
                   name="title"
                   type="text"
