@@ -2,6 +2,7 @@ const express = require("express");
 // const pool = require("./server/config/database");
 const pool = require("./server/config/database");
 require("dotenv").config();
+const path = require("path");
 const cors = require("cors");
 const routerUser = require("./server/api/users/user.router");
 const routerQuestion = require("./server/api/questions/question.router");
