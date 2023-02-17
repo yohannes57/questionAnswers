@@ -3,12 +3,14 @@ import "./AnsQuestion.css";
 import Question from "../Community/Question";
 import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
+// let questionId = "";
+const apiUrl = `${process.env.REACT_APP_API_URL}/answers`;
 
 function AnsQuestion(props) {
   let { questionId } = useParams();
   const [answer, setAnswer] = useState({});
   const [prevAnswers, setPrevAnswers] = useState();
-
+  const apiUrlId = `${process.env.REACT_APP_API_URL}/answers/${questionId}`;
   // get access to the data on state
   const location = useLocation();
   const { question, currentUserId } = location.state;
@@ -28,7 +30,7 @@ function AnsQuestion(props) {
     e.preventDefault();
     // console.log(">>>>> post answer -1");
     try {
-      await axios.post("http://localhost:4000/api/answers", {
+      await axios.post(apiUrl, {
         answer: answer.answer,
         questionId: answer.questionId,
         userId: answer.userId,
@@ -42,9 +44,8 @@ function AnsQuestion(props) {
   useEffect(() => {
     // setAskedQuestion(question);
     const fetchAnswers = async () => {
-      const answers = await axios.get(
-        `http://localhost:4000/api/answers/${questionId}`
-      );
+      // http://localhost:4000/api/answers/${questionId}
+      const answers = await axios.get(apiUrlId);
 
       setPrevAnswers(() => {
         return answers.data?.data;

@@ -4,6 +4,10 @@ import axios from "axios";
 import { UserContext } from "../../context/UserContext";
 import "./SignUp.css";
 import LandingPage from "../MiddleSection/LandingPage";
+//
+const apiUrlUser = `${process.env.REACT_APP_API_URL}/users`;
+const apiUrl = `${process.env.REACT_APP_API_URL}/login`;
+//
 const SignUp = () => {
   const [form, setForm] = useState({});
   const navigate = useNavigate();
@@ -16,16 +20,13 @@ const SignUp = () => {
     e.preventDefault();
     try {
       //sending data to be registered in database
-      await axios.post("http://localhost:4000/api/users", form);
+      await axios.post(apiUrlUser, form);
 
       //once registered the login automatically so send the new user info to be logged in
-      const loginRes = await axios.post(
-        "http://localhost:4000/api/users/login",
-        {
-          email: form.email,
-          password: form.password,
-        }
-      );
+      const loginRes = await axios.post(apiUrl, {
+        email: form.email,
+        password: form.password,
+      });
 
       // set the global state with the new user info
       setUserData({

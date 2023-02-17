@@ -4,7 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import LandingPage from "../MiddleSection/LandingPage";
 import "./Login.css";
-
+//
+const apiUrl = `${process.env.REACT_APP_API_URL}/login`;
+//
 const Login = () => {
   const [userData, setUserData] = useContext(UserContext);
   const navigate = useNavigate();
@@ -17,13 +19,10 @@ const Login = () => {
     try {
       // console.log("login>try 0");
       //sending user data to database to be logged in
-      const loginRes = await axios.post(
-        "http://localhost:4000/api/users/login",
-        {
-          email: form.email,
-          password: form.password,
-        }
-      );
+      const loginRes = await axios.post(apiUrl, {
+        email: form.email,
+        password: form.password,
+      });
       // console.log("login>try 1");
       //update global state with response from backend(user-info)
       setUserData({

@@ -5,6 +5,10 @@ import "./Home.css";
 import Question from "../Community/Question";
 import axios from "axios";
 import { MdArrowForwardIos } from "react-icons/md";
+//
+// http://localhost:4000/api/questions
+const apiUrl = `${process.env.REACT_APP_API_URL}/questions`;
+//
 const Home = ({ logout }) => {
   const [userData, setUserData] = useContext(UserContext);
   // const [page, setPage] = useState("Home");
@@ -14,7 +18,7 @@ const Home = ({ logout }) => {
   useEffect(() => {
     if (!userData.user) navigate("/login");
     const fetchQuestions = async () => {
-      let questions = await axios.get("http://localhost:4000/api/questions");
+      let questions = await axios.get(apiUrl);
       questions = questions.data.data;
       setAllQuestions(() => {
         return questions;

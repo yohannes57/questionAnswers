@@ -12,6 +12,9 @@ import Home from "./Pages/Home/Home";
 import Information from "./Pages/information/Information";
 import Login from "./Pages/Login/Login";
 import SignUp from "./Pages/SignUp/SignUp";
+//
+const apiUrl = `${process.env.REACT_APP_API_URL}/users`;
+//
 function App() {
   const [userData, setUserData] = useContext(UserContext);
 
@@ -24,7 +27,7 @@ function App() {
       token = "";
     } else {
       //if token exists in localStorage then use auth to verify token and get user info
-      const userRes = await axios.get("http://localhost:4000/api/users", {
+      const userRes = await axios.get(apiUrl, {
         headers: { "x-auth-token": token },
       });
 

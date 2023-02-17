@@ -5,7 +5,7 @@ import LandingPage from "../MiddleSection/LandingPage";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
-
+const apiUrl = `${process.env.REACT_APP_API_URL}/questions`;
 function AskQuestion() {
   const [form, setForm] = useState({});
   const [userData, setUserData] = useContext(UserContext);
@@ -38,7 +38,8 @@ function AskQuestion() {
       // console.log("ask question>>> 0");
       console.log(form);
       //sending data to be registered in database
-      await axios.post("http://localhost:4000/api/questions", {
+      // http://localhost:4000/api/questions
+      await axios.post(apiUrl, {
         title: form.title,
         description: form.description,
         userId: userData.user.id,
