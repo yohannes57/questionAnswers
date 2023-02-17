@@ -8,7 +8,6 @@ const routerUser = require("./server/api/users/user.router");
 const routerQuestion = require("./server/api/questions/question.router");
 const routerAnswers = require("./server/api/answers/answer.router");
 const app = express();
-
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

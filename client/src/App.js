@@ -24,7 +24,7 @@ function App() {
       token = "";
     } else {
       //if token exists in localStorage then use auth to verify token and get user info
-      const userRes = await axios.get("/users", {
+      const userRes = await axios.get("http://localhost:4000/api/users", {
         headers: { "x-auth-token": token },
       });
 
